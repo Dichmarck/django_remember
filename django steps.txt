@@ -1,0 +1,21 @@
+1) Создать папку + виртуальное окружение
+2) django-admin startproject <project_name>
+3) изменить внутреннюю папку <project_name> с файлами settings.py, wsgi.py, ... на config через refactor (по желанию) 
+4) django manage.py startapp <app_name>
+5) добавить в папку <app_name> urls.py 
+6) в <project_name>/config/settings добавить <app_name> в список INSTALLED_APPS
+7) добавить в папку <project_name> папки media, static, templates
+9) <project_name>/config/settings добавить:
+	MEDIA_URL = '/media/'
+	MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+	STATIC_DIR = os.path.join(BASE_DIR, 'static')
+	STATICFILES_DIRS = [STATIC_DIR]
+изменить:
+	LANGUAGE_CODE = 'ru' (по желанию)
+	'DIRS': [os.path.join(BASE_DIR, 'templates')],
+8) в static добавить css, js, 
+9) <project_name>/config/urls.py добавить (static импорт из django.conf.urls.static):
+	if settings.DEBUG:
+    		urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+в список urlpatterns добавить path('', include('<app_name>.urls')),
+
